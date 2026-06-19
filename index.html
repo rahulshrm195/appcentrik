@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AppCentrik — Software studio building apps that run real businesses</title>
+<meta name="description" content="AppCentrik builds fast, installable apps for Indian SMEs — dispatch, attendance, quotations, billing, and POS. Real software, shipped in weeks, running on any phone.">
+
+<!-- ============================================================
+     CONFIG — edit these two values, nothing else needs touching
+     ============================================================ -->
+<script>
+  const CONFIG = {
+    whatsapp: "918275407603",          // WhatsApp — country code first, no +, no spaces
+    email:    "rahulshrm195@gmail.com"
+  };
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#0B0B0C;
+    --paper:#FFFFFF;
+    --paper-2:#F6F6F2;
+    --green:#15A34A;
+    --green-dk:#0F7A38;
+    --live:#22C55E;
+    --muted:#6B7280;
+    --line:#E7E7E0;
+    --line-2:#1C1C1E;
+    --display:"Space Grotesk",sans-serif;
+    --body:"Inter",sans-serif;
+    --mono:"Space Mono",monospace;
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--green);color:#fff}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* ---------- eyebrow / mono labels ---------- */
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px;height:1px;background:var(--green);
+    display:inline-block;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.82);
+    backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{
+    font-family:var(--display);
+    font-weight:700;font-size:20px;letter-spacing:-.01em;
+    display:flex;align-items:center;gap:9px;
+  }
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--green);display:inline-block}
+  .navlinks{display:flex;gap:30px;align-items:center}
+  .navlinks a{font-size:14.5px;color:var(--muted);font-weight:500;transition:color .15s}
+  .navlinks a:hover{color:var(--ink)}
+  .btn{
+    font-family:var(--body);font-weight:600;font-size:14.5px;
+    padding:10px 18px;border-radius:10px;
+    display:inline-flex;align-items:center;gap:8px;
+    cursor:pointer;border:none;transition:transform .12s, background .15s, box-shadow .15s;
+  }
+  .btn-green{background:var(--green);color:#fff}
+  .btn-green:hover{background:var(--green-dk);transform:translateY(-1px)}
+  .btn-ink{background:var(--ink);color:#fff}
+  .btn-ink:hover{transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--ink)}
+  .nav .btn{padding:9px 16px}
+  .menu-toggle{display:none}
+
+  /* ---------- hero ---------- */
+  .hero{padding:96px 0 78px;border-bottom:1px solid var(--line)}
+  .hero h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(40px,6.4vw,76px);
+    line-height:1.02;letter-spacing:-.025em;
+    max-width:14ch;margin:26px 0 0;
+  }
+  .hero h1 .mark{
+    position:relative;white-space:nowrap;
+  }
+  .hero h1 .mark::after{
+    content:"";position:absolute;left:0;right:0;bottom:.07em;height:.16em;
+    background:var(--green);opacity:.9;z-index:-1;border-radius:2px;
+  }
+  .hero p.lead{
+    font-size:clamp(17px,2vw,20px);color:#3a3a3e;
+    max-width:54ch;margin:28px 0 0;line-height:1.6;
+  }
+  .hero-cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+  .hero-cta .btn{padding:14px 24px;font-size:15.5px}
+  .hero-proof{
+    margin-top:42px;font-family:var(--mono);font-size:12.5px;color:var(--muted);
+    letter-spacing:.02em;
+  }
+  .hero-proof b{color:var(--ink);font-weight:700}
+
+  /* ---------- trusted strip ---------- */
+  .trusted{background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .trusted .wrap{padding-top:30px;padding-bottom:30px;display:flex;align-items:center;gap:40px;flex-wrap:wrap}
+  .trusted .tlabel{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .trusted .names{display:flex;gap:34px;flex-wrap:wrap;align-items:center}
+  .trusted .names span{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;color:#33333a}
+
+  /* ---------- section scaffold ---------- */
+  section.block{padding:84px 0}
+  .sec-head{max-width:60ch}
+  .sec-head h2{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(28px,3.6vw,42px);letter-spacing:-.02em;line-height:1.08;
+    margin:16px 0 0;
+  }
+  .sec-head p{color:var(--muted);font-size:16.5px;margin-top:14px;max-width:52ch}
+
+  /* ---------- what we build ---------- */
+  .build-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    margin-top:50px;border-top:1px solid var(--line);border-left:1px solid var(--line);
+  }
+  .build-cell{
+    border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:30px 28px;background:var(--paper);transition:background .18s;
+  }
+  .build-cell:hover{background:var(--paper-2)}
+  .build-cell .num{font-family:var(--mono);font-size:12px;color:var(--green);font-weight:700}
+  .build-cell h3{font-family:var(--display);font-weight:600;font-size:20px;margin:14px 0 8px;letter-spacing:-.01em}
+  .build-cell p{font-size:14.5px;color:var(--muted);line-height:1.55}
+
+  /* ---------- product manifest (SIGNATURE) ---------- */
+  .manifest{background:var(--ink);color:#fff}
+  .manifest .sec-head h2{color:#fff}
+  .manifest .sec-head p{color:#9a9aa2}
+  .manifest .eyebrow{color:#8a8a92}
+  .mtable{margin-top:46px;border-top:1px solid var(--line-2)}
+  .mrow{
+    display:grid;grid-template-columns:54px 1.1fr 2fr auto;
+    align-items:center;gap:18px;
+    padding:22px 4px;border-bottom:1px solid var(--line-2);
+    transition:background .15s;
+  }
+  .mrow:hover{background:#141416}
+  .mrow .idx{font-family:var(--mono);font-size:12px;color:#5f5f68}
+  .mrow .mname{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .mrow .ver{font-family:var(--mono);font-size:11.5px;color:#7a7a82;font-weight:400}
+  .mrow .mdesc{font-size:14.5px;color:#a9a9b0;line-height:1.5}
+  .mrow .mstatus{display:flex;align-items:center;gap:18px;justify-self:end;flex-wrap:wrap;justify-content:flex-end}
+  .live{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--live);display:inline-flex;align-items:center;gap:7px;font-weight:700}
+  .live .pulse{width:8px;height:8px;border-radius:50%;background:var(--live);box-shadow:0 0 0 0 rgba(34,197,94,.7);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}70%{box-shadow:0 0 0 7px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px;border:1px solid #2a2a2e;color:#c9c9d0;white-space:nowrap}
+  .tag.license{border-color:var(--green);color:#5be393}
+  .manifest .foot{margin-top:34px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .manifest .foot .count{font-family:var(--display);font-weight:700;font-size:clamp(28px,4vw,46px);letter-spacing:-.02em}
+  .manifest .foot .count small{font-family:var(--mono);font-size:13px;color:#8a8a92;font-weight:400;letter-spacing:.04em;display:block;text-transform:uppercase;margin-top:4px}
+
+  /* ---------- selected work ---------- */
+  .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+  .work-card{
+    border:1px solid var(--line);border-radius:16px;padding:28px 26px 26px;
+    background:var(--paper);display:flex;flex-direction:column;transition:transform .15s, box-shadow .2s, border-color .15s;
+  }
+  .work-card:hover{transform:translateY(-3px);box-shadow:0 14px 40px -22px rgba(0,0,0,.25);border-color:#d5d5cc}
+  .work-card .client{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em}
+  .work-card .builtwhat{font-family:var(--mono);font-size:12px;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-top:6px}
+  .work-card p{font-size:14.5px;color:var(--muted);margin-top:16px;line-height:1.58;flex:1}
+  .work-card .stack{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+  .work-card .stack b{font-family:var(--mono);font-size:11px;font-weight:400;color:#5a5a60;background:var(--paper-2);border:1px solid var(--line);padding:4px 9px;border-radius:7px}
+
+  /* ---------- process ---------- */
+  .process{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px}
+  .step{padding:0 26px 0 0}
+  .step:not(:last-child){border-right:1px solid var(--line)}
+  .step{padding-left:26px}
+  .step:first-child{padding-left:0}
+  .step .sn{font-family:var(--mono);font-size:13px;color:var(--green);font-weight:700;letter-spacing:.06em}
+  .step h3{font-family:var(--display);font-weight:600;font-size:20px;margin:12px 0 8px;letter-spacing:-.01em}
+  .step p{font-size:14px;color:var(--muted);line-height:1.55}
+
+  /* ---------- contact ---------- */
+  .contact{background:var(--ink);color:#fff;padding:90px 0}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  .contact h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4vw,48px);letter-spacing:-.02em;line-height:1.05;margin-top:18px}
+  .contact .eyebrow{color:#8a8a92}
+  .contact .csub{color:#a9a9b0;font-size:16.5px;margin-top:18px;max-width:42ch;line-height:1.6}
+  .contact .direct{margin-top:32px;display:flex;flex-direction:column;gap:14px}
+  .contact .direct a{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-size:14px;color:#d0d0d6;transition:color .15s}
+  .contact .direct a:hover{color:#fff}
+  .contact .direct a .ic{width:18px;height:18px;color:var(--live)}
+
+  form .field{margin-bottom:18px}
+  form label{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#8a8a92;margin-bottom:8px}
+  form input,form textarea{
+    width:100%;background:#141416;border:1px solid #2a2a2e;border-radius:11px;
+    padding:13px 15px;color:#fff;font-family:var(--body);font-size:15px;transition:border-color .15s, background .15s;
+  }
+  form input:focus,form textarea:focus{outline:none;border-color:var(--green);background:#17171a}
+  form input::placeholder,form textarea::placeholder{color:#5a5a62}
+  form textarea{resize:vertical;min-height:108px}
+  form .btn-green{width:100%;justify-content:center;padding:15px;font-size:15.5px;margin-top:4px}
+  form .formnote{font-family:var(--mono);font-size:11.5px;color:#6a6a72;margin-top:14px;text-align:center;line-height:1.5}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:#fff;border-top:1px solid var(--line-2);padding:34px 0}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot-row .brand{color:#fff}
+  .foot-row .meta{font-family:var(--mono);font-size:12px;color:#7a7a82;letter-spacing:.02em}
+  .foot-row .flinks{display:flex;gap:24px}
+  .foot-row .flinks a{font-size:14px;color:#a9a9b0;transition:color .15s}
+  .foot-row .flinks a:hover{color:#fff}
+
+  /* ---------- reveal anim ---------- */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:900px){
+    .build-grid{grid-template-columns:repeat(2,1fr)}
+    .work-grid{grid-template-columns:1fr}
+    .steps{grid-template-columns:repeat(2,1fr);gap:34px 0}
+    .step{border-right:none!important;padding-left:0!important;padding-right:0}
+    .step:nth-child(odd){border-right:1px solid var(--line)!important;padding-right:26px}
+    .step:nth-child(even){padding-left:26px!important}
+    .contact-grid{grid-template-columns:1fr;gap:44px}
+    .mrow{grid-template-columns:36px 1fr;grid-template-areas:"idx name" ". desc" ". status";gap:10px 14px;row-gap:10px}
+    .mrow .idx{grid-area:idx}.mrow .mname{grid-area:name}.mrow .mdesc{grid-area:desc}.mrow .mstatus{grid-area:status;justify-self:start;justify-content:flex-start}
+  }
+  @media(max-width:680px){
+    .navlinks{display:none}
+    .nav .btn{display:none}
+    .menu-toggle{display:inline-flex;background:none;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-family:var(--mono);font-size:12px;cursor:pointer}
+    .build-grid{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr;gap:30px}
+    .step{border-right:none!important;padding:0!important}
+    .step:nth-child(odd){border-right:none!important;padding-right:0}
+    .hero{padding:64px 0 56px}
+    section.block{padding:62px 0}
+    .trusted .wrap{gap:18px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important}
+    .reveal{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand"><span class="dot"></span>AppCentrik</a>
+    <nav class="navlinks">
+      <a href="#build">What we build</a>
+      <a href="#products">Products</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-green" id="navCta">Start a project</a>
+    <button class="menu-toggle" onclick="document.getElementById('contact').scrollIntoView()">MENU</button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow reveal">Software studio — Nashik, India</span>
+    <h1 class="reveal">We build the apps your <span class="mark">business runs on</span>.</h1>
+    <p class="lead reveal">AppCentrik makes fast, installable apps for Indian SMEs — dispatch, attendance, quotations, billing, POS. Built around how your shop actually works, shipped in weeks, running on any phone.</p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-green" id="heroCta">Start a project →</a>
+      <a class="btn btn-ghost" href="#products">See our products</a>
+    </div>
+    <div class="hero-proof reveal"><b>15+ apps live</b> &nbsp;·&nbsp; Trusted by Moksh Laminates, Amar Furniture &amp; SR Shoes</div>
+  </div>
+</section>
+
+<!-- ================= TRUSTED ================= -->
+<div class="trusted">
+  <div class="wrap">
+    <span class="tlabel">Running on AppCentrik</span>
+    <div class="names">
+      <span>Moksh Laminates</span>
+      <span>Amar Furniture</span>
+      <span>SR Shoes</span>
+      <span>Novus Plylam</span>
+      <span>Progress Alliance</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= WHAT WE BUILD ================= -->
+<section class="block" id="build">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What we build</span>
+      <h2>The everyday operations of a business — turned into apps your team actually uses.</h2>
+      <p>No bloated software, no app-store downloads. Just the few screens your business needs, working on every phone in the shop.</p>
+    </div>
+    <div class="build-grid">
+      <div class="build-cell reveal"><div class="num">01</div><h3>Dispatch &amp; orders</h3><p>Track every order from entry to delivery. Replace the dispatch register and the “where is my order” phone calls.</p></div>
+      <div class="build-cell reveal"><div class="num">02</div><h3>Attendance &amp; payroll</h3><p>Clock-in, hours, overtime and salary — calculated automatically. Daily-wage or monthly, your rules.</p></div>
+      <div class="build-cell reveal"><div class="num">03</div><h3>Quotations &amp; estimates</h3><p>Build a professional quote in minutes with your own rate list, and send a clean PDF on the spot.</p></div>
+      <div class="build-cell reveal"><div class="num">04</div><h3>Billing &amp; POS</h3><p>Sell faster at the counter, print receipts, and keep your catalog and stock in sync.</p></div>
+      <div class="build-cell reveal"><div class="num">05</div><h3>Job &amp; production tracking</h3><p>Follow work across machines and operators — what’s pending, what’s done, who’s on it.</p></div>
+      <div class="build-cell reveal"><div class="num">06</div><h3>Anything custom</h3><p>Whatever your business does that no off-the-shelf app handles — we build exactly that, around your workflow.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRODUCT MANIFEST (SIGNATURE) ================= -->
+<section class="manifest block" id="products">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Ready products</span>
+      <h2>Proven apps you can run from day one.</h2>
+      <p>Already live with paying businesses. License them as-is, or use them as the starting point for something built for you.</p>
+    </div>
+    <div class="mtable">
+      <div class="mrow reveal">
+        <div class="idx">/01</div>
+        <div class="mname">DispatchPro <span class="ver">v1.3</span></div>
+        <div class="mdesc">Order &amp; dispatch management for distributors and manufacturers.</div>
+        <div class="mstatus"><span class="live"><span class="pulse"></span>Live</span><span class="tag license">License it</span></div>
+      </div>
+      <div class="mrow reveal">
+        <div class="idx">/02</div>
+        <div class="mname">AttendPro <span class="ver">v1.16</span></div>
+        <div class="mdesc">Attendance &amp; payroll for teams of any size — hourly, daily-wage or monthly.</div>
+        <div class="mstatus"><span class="live"><span class="pulse"></span>Live</span><span class="tag license">License it</span></div>
+      </div>
+      <div class="mrow reveal">
+        <div class="idx">/03</div>
+        <div class="mname">OrdersPro <span class="ver">v1.1</span></div>
+        <div class="mdesc">Multi-branch order management with roles, filters and live stats.</div>
+        <div class="mstatus"><span class="live"><span class="pulse"></span>Live</span><span class="tag license">License it</span></div>
+      </div>
+      <div class="mrow reveal">
+        <div class="idx">/04</div>
+        <div class="mname">QuotePro <span class="ver">v1.0</span></div>
+        <div class="mdesc">Room-wise quotation builder with rate master and instant PDF.</div>
+        <div class="mstatus"><span class="live"><span class="pulse"></span>Live</span><span class="tag">Client build</span></div>
+      </div>
+      <div class="mrow reveal">
+        <div class="idx">/05</div>
+        <div class="mname">PA Guest Tracker <span class="ver">v1.0</span></div>
+        <div class="mdesc">Event guest registration with multi-language forms and roles.</div>
+        <div class="mstatus"><span class="live"><span class="pulse"></span>Live</span><span class="tag">Client build</span></div>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="count">15+<small>apps shipped &amp; live</small></div>
+      <a class="btn btn-green" id="prodCta">Talk to us about licensing →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SELECTED WORK ================= -->
+<section class="block" id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Selected work</span>
+      <h2>Whole businesses, running on software we built.</h2>
+      <p>Not one app — connected suites that cover how each business actually operates, end to end.</p>
+    </div>
+    <div class="work-grid">
+      <div class="work-card reveal">
+        <div class="client">Moksh Laminates</div>
+        <div class="builtwhat">DispatchPro</div>
+        <p>Dispatch ran on a register and a dozen phone calls a day. Now every order is tracked from entry to delivery in a single tap — office and floor on the same page.</p>
+        <div class="stack"><b>orders</b><b>dispatch</b><b>roles</b></div>
+      </div>
+      <div class="work-card reveal">
+        <div class="client">Amar Furniture</div>
+        <div class="builtwhat">Full factory suite</div>
+        <p>Quotations, machine-job tracking, attendance, daily-wage settlement and material cut optimization — one connected suite for the whole factory floor.</p>
+        <div class="stack"><b>quotes</b><b>machines</b><b>payroll</b><b>cutting</b></div>
+      </div>
+      <div class="work-card reveal">
+        <div class="client">SR Shoes</div>
+        <div class="builtwhat">Retail suite</div>
+        <p>POS, a live catalog, staff attendance and coupon management — the entire shop running on apps the team actually uses, day in and day out.</p>
+        <div class="stack"><b>pos</b><b>catalog</b><b>coupons</b><b>attendance</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section class="process block" id="process">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">How we work</span>
+      <h2>From your register to a live app, in weeks.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="sn">01 — Talk</div><h3>Understand</h3><p>We map how your business actually works — the registers, the slips, the WhatsApp groups — before writing a line of code.</p></div>
+      <div class="step reveal"><div class="sn">02 — Build</div><h3>Build</h3><p>You see it take shape in days, not months. Feedback over WhatsApp, changes shipped the same week.</p></div>
+      <div class="step reveal"><div class="sn">03 — Ship</div><h3>Go live</h3><p>It launches on your own domain, installable on every phone. No app store, nothing to download or manage.</p></div>
+      <div class="step reveal"><div class="sn">04 — Run</div><h3>Improve</h3><p>We keep refining it as your business grows. New features ship continuously, not once a year.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="eyebrow">Start a project</span>
+      <h2>Tell us what your business runs on today.</h2>
+      <p class="csub">A register, a notebook, a dozen Excel sheets, endless WhatsApp messages? Tell us, and we’ll show you what it looks like as an app.</p>
+      <div class="direct">
+        <a id="waLink" target="_blank" rel="noopener">
+          <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.04c-.24.68-1.4 1.3-1.94 1.38-.5.07-1.12.1-1.81-.11-.42-.13-.95-.31-1.64-.6-2.88-1.24-4.76-4.14-4.9-4.33-.14-.19-1.17-1.56-1.17-2.97 0-1.41.74-2.1 1-2.39.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.42-.07.65.5.24.58.81 2 .88 2.15.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.29.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.22 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.08.18-.28.37-.23.62-.14.25.09 1.6.76 1.87.9.28.14.46.21.53.32.07.12.07.68-.17 1.36z"/></svg>
+          Message us on WhatsApp
+        </a>
+        <a id="mailLink">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <span id="mailText">email us</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="field">
+        <label for="f-name">Your name</label>
+        <input id="f-name" type="text" placeholder="Rahul Sharma" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="f-biz">Business name</label>
+        <input id="f-biz" type="text" placeholder="e.g. Amar Furniture" autocomplete="organization">
+      </div>
+      <div class="field">
+        <label for="f-msg">What do you want to build or fix?</label>
+        <textarea id="f-msg" placeholder="We track dispatch in a register and keep losing orders. We need…"></textarea>
+      </div>
+      <button class="btn btn-green" id="sendBtn" onclick="sendLead()">Send via WhatsApp →</button>
+      <div class="formnote">Opens WhatsApp with your message ready to send. Prefer email? Use the link on the left.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap foot-row">
+    <a href="#top" class="brand"><span class="dot"></span>AppCentrik</a>
+    <div class="flinks">
+      <a href="#build">What we build</a>
+      <a href="#products">Products</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="meta">© <span id="yr"></span> AppCentrik · Nashik, Maharashtra</div>
+  </div>
+</footer>
+
+<script>
+  // ---- wire up contact targets from CONFIG ----
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const baseWa = "https://wa.me/" + CONFIG.whatsapp;
+  document.getElementById('waLink').href = baseWa + "?text=" + encodeURIComponent("Hi AppCentrik, I'd like to talk about building an app for my business.");
+  document.getElementById('mailLink').href = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent("Project enquiry — AppCentrik");
+  document.getElementById('mailText').textContent = CONFIG.email;
+
+  ['navCta','heroCta','prodCta'].forEach(id=>{
+    document.getElementById(id).addEventListener('click',()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}));
+  });
+
+  // ---- form -> WhatsApp ----
+  function sendLead(){
+    const name = document.getElementById('f-name').value.trim();
+    const biz  = document.getElementById('f-biz').value.trim();
+    const msg  = document.getElementById('f-msg').value.trim();
+    if(!msg && !name){ document.getElementById('f-name').focus(); return; }
+    let text = "Hi AppCentrik,";
+    if(name) text += "\nI'm " + name + (biz ? " from " + biz : "") + ".";
+    else if(biz) text += "\nI'm from " + biz + ".";
+    text += "\n\n" + (msg || "I'd like to talk about an app for my business.");
+    window.open(baseWa + "?text=" + encodeURIComponent(text), "_blank", "noopener");
+  }
+
+  // ---- scroll reveal ----
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12, rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay = (Math.min(i%6,5)*45) + "ms";
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
