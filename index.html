@@ -249,6 +249,22 @@
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
   .reveal.in{opacity:1;transform:none}
 
+  /* ---------- back-to-top FAB ---------- */
+  .fab{
+    position:fixed;right:24px;bottom:24px;z-index:60;
+    width:50px;height:50px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--green);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 24px -6px rgba(21,163,74,.5), 0 2px 6px rgba(0,0,0,.15);
+    opacity:0;visibility:hidden;transform:translateY(12px) scale(.9);
+    transition:opacity .25s ease, transform .25s ease, visibility .25s, background .15s;
+  }
+  .fab.show{opacity:1;visibility:visible;transform:none}
+  .fab:hover{background:var(--green-dk);transform:translateY(-2px)}
+  .fab:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+  .fab svg{width:22px;height:22px}
+  @media(max-width:680px){ .fab{right:18px;bottom:18px;width:46px;height:46px} }
+
   /* ---------- responsive ---------- */
   @media(max-width:900px){
     .build-grid{grid-template-columns:repeat(2,1fr)}
@@ -479,6 +495,11 @@
   </div>
 </section>
 
+<!-- ================= BACK TO TOP ================= -->
+<button class="fab" id="toTop" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+</button>
+
 <!-- ================= FOOTER ================= -->
 <footer>
   <div class="wrap foot-row">
@@ -517,6 +538,16 @@
     text += "\n\n" + (msg || "I'd like to talk about an app for my business.");
     window.open(baseWa + "?text=" + encodeURIComponent(text), "_blank", "noopener");
   }
+
+  // ---- back-to-top FAB ----
+  const toTop = document.getElementById('toTop');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const onScroll = () => toTop.classList.toggle('show', window.scrollY > 600);
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  toTop.addEventListener('click', () => {
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+  });
 
   // ---- scroll reveal ----
   const io = new IntersectionObserver((entries)=>{
